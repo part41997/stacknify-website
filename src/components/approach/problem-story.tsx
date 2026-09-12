@@ -1,22 +1,19 @@
 "use client";
 
 import {
-  animate,
   motion,
-  useInView,
   useMotionValue,
   useScroll,
   useTransform,
   type MotionValue,
 } from "framer-motion";
-import { useEffect, useId, useRef } from "react";
+import { useId, useRef } from "react";
 
 import { DrawLine } from "@/components/animations/draw-line";
 import { ProblemSceneVisual } from "@/components/approach/problem-scene-visual";
 import { problemsContent } from "@/data/problems";
 import { useMotionProfile } from "@/hooks/use-motion-profile";
 import { usePointerParallax } from "@/hooks/use-pointer-parallax";
-import { defaultEase } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 import type { ProblemSolutionPair } from "@/types";
 
@@ -29,36 +26,14 @@ export function ProblemStory({ pair, index }: ProblemStoryProps) {
   const ref = useRef<HTMLElement>(null);
   const { reduceMotion, isDesktop, allowParallax } = useMotionProfile();
   const parallax = usePointerParallax(allowParallax, 5);
-  const inView = useInView(ref, { amount: 0.28, margin: "-8% 0px" });
-  const local = useMotionValue(reduceMotion ? 1 : 0);
+  const local = useMotionValue(1);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start 0.72", "end 0.42"],
   });
-  const progress = isDesktop && !reduceMotion ? scrollYProgress : local;
+  const cinematic = isDesktop && !reduceMotion;
+  const progress = cinematic ? scrollYProgress : local;
   const flipped = index % 2 === 1;
-
-  useEffect(() => {
-    if (isDesktop && !reduceMotion) {
-      return;
-    }
-
-    if (reduceMotion) {
-      local.set(1);
-      return;
-    }
-
-    if (!inView) {
-      return;
-    }
-
-    const playback = animate(local, 1, {
-      duration: 1.15,
-      ease: defaultEase,
-    });
-
-    return () => playback.stop();
-  }, [inView, isDesktop, local, reduceMotion]);
 
   const problemOpacity = useTransform(progress, [0, 0.22, 0.52], [1, 1, 0.38]);
   const solutionOpacity = useTransform(progress, [0.36, 0.62, 1], [0, 1, 1]);
@@ -72,33 +47,25 @@ export function ProblemStory({ pair, index }: ProblemStoryProps) {
       aria-labelledby={`problem-story-${pair.slug}`}
       className={cn(
         "relative",
-        isDesktop && !reduceMotion ? "lg:min-h-[118vh]" : undefined,
+        cinematic && "lg:min-h-[118vh]",
       )}
     >
       <div
         className={cn(
-          "grid items-center gap-8 lg:grid-cols-2 lg:gap-12 xl:gap-14",
-          isDesktop && !reduceMotion &&
+          "grid grid-cols-1 gap-5 sm:gap-6 lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:items-start lg:gap-x-12 lg:gap-y-6 xl:gap-x-14",
+          cinematic &&
             "lg:sticky lg:top-[calc(var(--header-height)+1.5rem)] lg:min-h-[calc(100svh-var(--header-height)-3rem)] lg:py-6",
         )}
       >
-        <motion.div
-          className={cn(flipped && "lg:order-2")}
-          onPointerMove={parallax.onPointerMove}
-          onPointerLeave={parallax.onPointerLeave}
-          style={{ x: parallax.x, y: parallax.y }}
+        <header
+          className={cn(
+            "relative max-w-xl overflow-x-clip",
+            flipped ? "lg:col-start-1 lg:row-start-1" : "lg:col-start-2 lg:row-start-1",
+          )}
         >
-          <ProblemSceneVisual
-            slug={pair.slug}
-            progress={progress}
-            className="aspect-[5/4] min-h-[20rem] w-full sm:min-h-[26rem] lg:aspect-[4/5] lg:min-h-[min(40rem,calc(100svh-var(--header-height)-3.5rem))]"
-          />
-        </motion.div>
-
-        <div className={cn("relative max-w-xl", flipped && "lg:order-1")}>
           <p
             aria-hidden
-            className="pointer-events-none absolute -top-10 right-0 font-heading text-[5.5rem] leading-none text-navy/6 select-none sm:-top-14 sm:text-[7rem]"
+            className="pointer-events-none absolute -top-4 right-0 hidden font-heading text-[5.5rem] leading-none text-navy/6 select-none lg:block lg:-top-10 lg:text-[7rem]"
           >
             {pair.number}
           </p>
@@ -107,28 +74,54 @@ export function ProblemStory({ pair, index }: ProblemStoryProps) {
           </p>
           <h3
             id={`problem-story-${pair.slug}`}
-            className="mt-3 font-heading text-h2 text-text-primary"
+            className="mt-2 font-heading text-h3 text-text-primary sm:mt-3 sm:text-h2"
           >
             {pair.title}
           </h3>
-          <DrawLine className="mt-4 max-w-40" />
+          <DrawLine className="mt-3 max-w-40 sm:mt-4" />
+        </header>
 
-          <motion.div style={{ opacity: problemOpacity }} className="mt-6">
+        <motion.div
+          className={cn(
+            flipped
+              ? "lg:col-start-2 lg:row-span-2 lg:row-start-1"
+              : "lg:col-start-1 lg:row-span-2 lg:row-start-1",
+          )}
+          onPointerMove={parallax.onPointerMove}
+          onPointerLeave={parallax.onPointerLeave}
+          style={{ x: parallax.x, y: parallax.y }}
+        >
+          <ProblemSceneVisual
+            slug={pair.slug}
+            progress={progress}
+            className="aspect-[16/10] min-h-0 w-full sm:aspect-[5/4] sm:min-h-[22rem] lg:aspect-[4/5] lg:min-h-[min(36rem,calc(100svh-var(--header-height)-3.5rem))]"
+          />
+        </motion.div>
+
+        <div
+          className={cn(
+            "relative max-w-xl overflow-x-clip",
+            flipped ? "lg:col-start-1 lg:row-start-2" : "lg:col-start-2 lg:row-start-2",
+          )}
+        >
+          <motion.div style={cinematic ? { opacity: problemOpacity } : undefined}>
             <p className="text-overline text-text-muted uppercase">
               {problemsContent.problemLabel}
             </p>
-            <p className="mt-3 font-heading text-[1.35rem] leading-snug tracking-[-0.03em] text-text-primary sm:text-h3">
+            <p className="mt-2 font-heading text-[1.2rem] leading-snug tracking-[-0.03em] text-text-primary sm:mt-3 sm:text-[1.35rem] sm:text-h3">
               {pair.problem}
             </p>
           </motion.div>
 
           <StoryLine progress={line} />
 
-          <motion.div style={{ opacity: solutionOpacity, y: solutionY }}>
+          <motion.div
+            style={cinematic ? { opacity: solutionOpacity, y: solutionY } : undefined}
+          >
             <p className="text-overline text-brand-teal uppercase">
               {problemsContent.solutionLabel}
             </p>
-            <p className="mt-3 font-heading text-[1.35rem] leading-snug tracking-[-0.03em] text-text-primary sm:text-h3">
+            <p className="mt-2 font-heading text-[1.2rem] leading-snug tracking-[-0.03em] text-text-primary sm:mt-3 sm:text-[1.35rem] sm:text-h3">
               {pair.solution}
             </p>
             <p className="mt-3 max-w-md text-body text-text-secondary">
@@ -136,7 +129,10 @@ export function ProblemStory({ pair, index }: ProblemStoryProps) {
             </p>
           </motion.div>
 
-          <motion.div style={{ opacity: techOpacity }} className="mt-6">
+          <motion.div
+            style={cinematic ? { opacity: techOpacity } : undefined}
+            className="mt-5 sm:mt-6"
+          >
             <p className="text-overline text-text-muted uppercase">
               {problemsContent.technologyLabel}
             </p>
@@ -161,7 +157,12 @@ function StoryLine({ progress }: { progress: MotionValue<number> }) {
   const uid = useId().replace(/:/g, "");
 
   return (
-    <svg aria-hidden viewBox="0 0 24 96" className="my-6 h-24 w-6" fill="none">
+    <svg
+      aria-hidden
+      viewBox="0 0 24 96"
+      className="my-4 h-16 w-5 sm:my-6 sm:h-24 sm:w-6"
+      fill="none"
+    >
       <defs>
         <linearGradient id={uid} x1="0" y1="0" x2="0" y2="1">
           <stop stopColor="var(--brand-teal)" />

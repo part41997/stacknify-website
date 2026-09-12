@@ -7,7 +7,7 @@ import { problemSolutions, problemsContent } from "@/data/problems";
 
 export function ProblemStories() {
   return (
-    <div className="flex flex-col gap-8 pt-section-sm pb-section-md lg:gap-6">
+    <div className="flex flex-col gap-10 pt-section-sm pb-section-md sm:gap-12 lg:gap-6">
       <FadeIn>
         <SectionHeading
           eyebrow={problemsContent.eyebrow}
@@ -20,7 +20,7 @@ export function ProblemStories() {
 
       <div
         aria-label={problemsContent.stepsLabel}
-        className="flex flex-col gap-16 lg:gap-8"
+        className="flex flex-col gap-16 sm:gap-20 lg:gap-8"
       >
         {problemSolutions.map((pair, index) => (
           <ProblemStory key={pair.slug} pair={pair} index={index} />
