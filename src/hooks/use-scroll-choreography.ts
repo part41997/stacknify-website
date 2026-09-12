@@ -1,9 +1,7 @@
 "use client";
 
-import { useMotionValue } from "framer-motion";
-import { useEffect, useState, type RefObject } from "react";
-
-import { getGsap } from "@/lib/gsap";
+import { useMotionValue, useSpring } from "framer-motion";
+import { useLayoutEffect, useState, type RefObject } from "react";
 
 type UseScrollChoreographyOptions = {
   enabled?: boolean;
@@ -15,63 +13,96 @@ type UseScrollChoreographyOptions = {
   scrub?: number | boolean;
 };
 
+function indexFromProgress(
+  value: number,
+  steps: number,
+  mode: "round" | "floor",
+) {
+  const lastIndex = Math.max(0, steps - 1);
+  const clamped = Math.min(1, Math.max(0, value));
+
+  if (mode === "floor") {
+    return Math.min(lastIndex, Math.floor(Math.min(0.9999, clamped) * steps));
+  }
+
+  return Math.min(lastIndex, Math.round(clamped * lastIndex));
+}
+
+function progressFromTrack(triggerEl: HTMLElement) {
+  const distance = triggerEl.offsetHeight - window.innerHeight;
+  if (distance <= 0) {
+    return triggerEl.getBoundingClientRect().top <= 0 ? 1 : 0;
+  }
+
+  return Math.min(1, Math.max(0, -triggerEl.getBoundingClientRect().top / distance));
+}
+
 export function useScrollChoreography(
   ref: RefObject<HTMLElement | null>,
   {
     enabled = true,
     steps,
     mode = "round",
-    start = "top top",
-    end = "bottom bottom",
     scrub = 0.65,
   }: UseScrollChoreographyOptions,
 ) {
-  const progress = useMotionValue(0);
-  const [activeIndex, setActiveIndex] = useState(0);
   const lastIndex = Math.max(0, steps - 1);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const rawProgress = useMotionValue(0);
+  const progress = useSpring(rawProgress, {
+    stiffness: scrub === false ? 400 : 80,
+    damping: scrub === false ? 40 : 28,
+    mass: 0.35,
+    restDelta: 0.001,
+  });
 
-  useEffect(() => {
-    const triggerEl = ref.current;
-    if (!enabled || !triggerEl || steps < 1) {
+  useLayoutEffect(() => {
+    if (!enabled || steps < 1) {
       return;
     }
 
-    const { ScrollTrigger } = getGsap();
+    let observer: ResizeObserver | undefined;
+    let frame = 0;
 
-    const apply = (raw: number) => {
-      const value = Math.min(1, Math.max(0, raw));
-      progress.set(value);
+    const apply = () => {
+      const triggerEl = ref.current;
+      if (!triggerEl) {
+        return;
+      }
 
-      const next =
-        mode === "floor"
-          ? Math.min(lastIndex, Math.floor(Math.min(0.9999, value) * steps))
-          : Math.min(lastIndex, Math.round(value * lastIndex));
-
+      const value = progressFromTrack(triggerEl);
+      rawProgress.set(value);
+      const next = indexFromProgress(value, steps, mode);
       setActiveIndex((current) => (current === next ? current : next));
     };
 
-    const trigger = ScrollTrigger.create({
-      trigger: triggerEl,
-      start,
-      end,
-      scrub,
-      onUpdate: (self) => {
-        apply(self.progress);
-      },
-    });
+    const observe = () => {
+      const triggerEl = ref.current;
+      if (!triggerEl) {
+        frame = window.requestAnimationFrame(observe);
+        return;
+      }
 
-    apply(trigger.progress);
+      observer?.disconnect();
+      observer = new ResizeObserver(apply);
+      observer.observe(triggerEl);
+      apply();
+    };
 
-    const frame = window.requestAnimationFrame(() => {
-      ScrollTrigger.refresh();
-      apply(trigger.progress);
-    });
+    apply();
+    observe();
+    window.addEventListener("scroll", apply, { passive: true });
+    document.addEventListener("scroll", apply, { passive: true, capture: true });
+    window.addEventListener("resize", apply);
 
     return () => {
       window.cancelAnimationFrame(frame);
-      trigger.kill();
+      window.removeEventListener("scroll", apply);
+      document.removeEventListener("scroll", apply, { capture: true });
+      window.removeEventListener("resize", apply);
+      observer?.disconnect();
     };
-  }, [enabled, end, lastIndex, mode, progress, ref, scrub, start, steps]);
+  }, [enabled, mode, rawProgress, ref, steps]);
 
   const scrollToIndex = (index: number) => {
     const triggerEl = ref.current;

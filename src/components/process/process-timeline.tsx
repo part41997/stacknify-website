@@ -47,7 +47,7 @@ function PinnedProcess() {
   const trackRef = useRef<HTMLDivElement>(null);
   const { progress, activeIndex, scrollToIndex } = useScrollChoreography(
     trackRef,
-    { steps: processSteps.length },
+    { steps: processSteps.length, mode: "floor" },
   );
 
   const step = processSteps[activeIndex] ?? processSteps[0];
@@ -59,10 +59,7 @@ function PinnedProcess() {
         <Container className="relative flex flex-col gap-6 lg:gap-8">
           <ProcessHeading />
 
-          <ProcessJourney
-            activeIndex={activeIndex}
-            progress={progress}
-          />
+          <ProcessJourney activeIndex={activeIndex} />
 
           <ProcessRail
             activeIndex={activeIndex}

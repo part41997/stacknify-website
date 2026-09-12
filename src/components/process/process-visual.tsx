@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  AnimatePresence,
-  motion,
-  useTransform,
-  type MotionValue,
-} from "framer-motion";
+import { AnimatePresence, motion, type MotionValue } from "framer-motion";
 import { useId } from "react";
 
 import { SiteImage } from "@/components/media/site-image";
@@ -16,26 +11,14 @@ import { defaultEase } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 import type { SiteImageAsset } from "@/types";
 
-const PROCESS_SCENE_FADES = [
-  { input: [0, 0.1, 0.22], output: [1, 1, 0] },
-  { input: [0.12, 0.22, 0.34], output: [0, 1, 0] },
-  { input: [0.26, 0.36, 0.48], output: [0, 1, 0] },
-  { input: [0.4, 0.5, 0.62], output: [0, 1, 0] },
-  { input: [0.54, 0.64, 0.76], output: [0, 1, 0] },
-  { input: [0.68, 0.78, 0.9], output: [0, 1, 0] },
-  { input: [0.82, 0.92, 1], output: [0, 1, 1] },
-] as const;
-
 type ProcessSceneProps = {
   activeIndex: number;
-  progress: MotionValue<number>;
   compact?: boolean;
   className?: string;
 };
 
 export function ProcessJourney({
   activeIndex,
-  progress,
   compact = false,
   className,
 }: ProcessSceneProps) {
@@ -49,32 +32,29 @@ export function ProcessJourney({
       : "aspect-[16/9] min-h-[20rem] lg:aspect-[16/8] lg:min-h-[28rem]",
     className,
   );
-  const photos = processSteps.flatMap((item, index) => {
+  const photos = processSteps.flatMap((item) => {
     const image = getProcessImage(item.slug);
-    const fade = PROCESS_SCENE_FADES[index];
-    if (!fade || !isImageReady(image)) {
+    if (!isImageReady(image)) {
       return [];
     }
 
-    return [{ image, fade }];
+    return [{ slug: item.slug, image }];
   });
   const photosReady = photos.length === processSteps.length;
 
   if (photosReady) {
     return (
       <div data-slot="process-journey" className={frame}>
-        {photos.map((item) => (
+        {photos.map((item, index) => (
           <ProcessPhotoLayer
             key={item.image.id}
             image={item.image}
-            progress={progress}
-            input={item.fade.input}
-            output={item.fade.output}
+            active={index === activeIndex}
           />
         ))}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-white/92 via-white/20 to-transparent"
+          className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t from-white/92 via-white/20 to-transparent"
         />
         <AnimatePresence mode="wait" initial={false}>
           <motion.p
@@ -109,7 +89,7 @@ export function ProcessJourney({
 
   return (
     <ProcessJourneyDiagram
-      progress={progress}
+      activeIndex={activeIndex}
       caption={caption}
       className={frame}
     />
@@ -118,21 +98,18 @@ export function ProcessJourney({
 
 function ProcessPhotoLayer({
   image,
-  progress,
-  input,
-  output,
+  active,
 }: {
   image: SiteImageAsset;
-  progress: MotionValue<number>;
-  input: readonly [number, number, number];
-  output: readonly [number, number, number];
+  active: boolean;
 }) {
-  const opacity = useTransform(progress, [...input], [...output]);
-
   return (
     <motion.div
       className="pointer-events-none absolute inset-0"
-      style={{ opacity }}
+      initial={false}
+      animate={{ opacity: active ? 1 : 0 }}
+      transition={{ duration: 0.4, ease: defaultEase }}
+      style={{ zIndex: active ? 1 : 0 }}
     >
       <SiteImage
         image={image}
@@ -178,11 +155,11 @@ export function ProcessStepStill({
 }
 
 function ProcessJourneyDiagram({
-  progress,
+  activeIndex,
   caption,
   className,
 }: {
-  progress: MotionValue<number>;
+  activeIndex: number;
   caption: string;
   className?: string;
 }) {
@@ -217,27 +194,28 @@ function ProcessJourneyDiagram({
           </linearGradient>
         </defs>
 
-        <SceneLayers progress={progress} stroke={`url(#${uid}-flow)`} />
+        <SceneLayers activeIndex={activeIndex} stroke={`url(#${uid}-flow)`} />
       </svg>
     </div>
   );
 }
 
 function SceneLayers({
-  progress,
+  activeIndex,
   stroke,
 }: {
-  progress: MotionValue<number>;
+  activeIndex: number;
   stroke: string;
 }) {
-  const idea = useTransform(progress, [0, 0.1, 0.22], [1, 1, 0]);
-  const plan = useTransform(progress, [0.12, 0.22, 0.34], [0, 1, 0]);
-  const wire = useTransform(progress, [0.26, 0.36, 0.48], [0, 1, 0]);
-  const code = useTransform(progress, [0.4, 0.5, 0.62], [0, 1, 0]);
-  const test = useTransform(progress, [0.54, 0.64, 0.76], [0, 1, 0]);
-  const deploy = useTransform(progress, [0.68, 0.78, 0.9], [0, 1, 0]);
-  const growth = useTransform(progress, [0.82, 0.92, 1], [0, 1, 1]);
-  const line = useTransform(progress, [0, 1], [0, 1]);
+  const scenes = [
+    <IdeaScene key="idea" />,
+    <PlanScene key="plan" />,
+    <WireScene key="wire" />,
+    <CodeScene key="code" />,
+    <TestScene key="test" />,
+    <DeployScene key="deploy" />,
+    <GrowthScene key="growth" />,
+  ];
 
   return (
     <>
@@ -246,30 +224,21 @@ function SceneLayers({
         stroke={stroke}
         strokeWidth="2"
         strokeLinecap="round"
-        style={{ pathLength: line }}
+        initial={false}
+        animate={{ pathLength: (activeIndex + 1) / scenes.length }}
+        transition={{ duration: 0.4, ease: defaultEase }}
       />
 
-      <motion.g style={{ opacity: idea }}>
-        <IdeaScene />
-      </motion.g>
-      <motion.g style={{ opacity: plan }}>
-        <PlanScene />
-      </motion.g>
-      <motion.g style={{ opacity: wire }}>
-        <WireScene />
-      </motion.g>
-      <motion.g style={{ opacity: code }}>
-        <CodeScene />
-      </motion.g>
-      <motion.g style={{ opacity: test }}>
-        <TestScene />
-      </motion.g>
-      <motion.g style={{ opacity: deploy }}>
-        <DeployScene />
-      </motion.g>
-      <motion.g style={{ opacity: growth }}>
-        <GrowthScene />
-      </motion.g>
+      {scenes.map((scene, index) => (
+        <motion.g
+          key={scene.key}
+          initial={false}
+          animate={{ opacity: index === activeIndex ? 1 : 0 }}
+          transition={{ duration: 0.4, ease: defaultEase }}
+        >
+          {scene}
+        </motion.g>
+      ))}
     </>
   );
 }
