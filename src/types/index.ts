@@ -222,12 +222,16 @@ export type Project = {
 
 export type TechnologyClusterId =
   | "frontend"
-  | "backend"
   | "mobile"
-  | "database"
+  | "backend"
   | "ai"
+  | "database"
   | "cloud"
   | "devops"
+  | "design"
+  | "enterprise"
+  | "integrations"
+  | "security"
   | "marketing";
 
 export type TechnologyCluster = {

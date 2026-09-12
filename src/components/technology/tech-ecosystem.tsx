@@ -128,7 +128,7 @@ export function TechEcosystem() {
           </div>
 
           <LayoutGroup>
-            <ul className="relative flex flex-col gap-1.5 px-3 pb-4 sm:px-4">
+            <ul className="relative flex max-h-[min(42rem,70vh)] flex-col gap-0.5 overflow-y-auto px-3 pb-4 sm:px-4">
               {technologyLayerOrder.map((id, index) => {
                 const item = getClusterById(id);
                 if (!item) {
@@ -145,7 +145,7 @@ export function TechEcosystem() {
                       type="button"
                       aria-pressed={selected}
                       onClick={() => selectCluster(id)}
-                      className="relative flex w-full items-center gap-3 rounded-2xl px-3 py-2.5 text-left outline-none transition-colors focus-visible:ring-2 focus-visible:ring-ring/70"
+                      className="relative flex w-full items-center gap-3 rounded-2xl px-3 py-2 text-left outline-none transition-colors focus-visible:ring-2 focus-visible:ring-ring/70"
                     >
                       {selected ? (
                         <motion.span
@@ -157,7 +157,7 @@ export function TechEcosystem() {
                       ) : null}
                       <span
                         className={cn(
-                          "relative z-10 flex size-9 shrink-0 items-center justify-center rounded-xl transition-colors",
+                          "relative z-10 flex size-8 shrink-0 items-center justify-center rounded-xl transition-colors",
                           selected ? "bg-white text-teal" : "bg-mist text-navy/40",
                         )}
                       >
@@ -172,18 +172,13 @@ export function TechEcosystem() {
                         >
                           {item.label}
                         </span>
-                        <span className="mt-0.5 flex flex-wrap gap-x-1.5 gap-y-0.5">
-                          {tools.map((tech) => (
-                            <span
-                              key={tech.slug}
-                              className={cn(
-                                "text-[0.6875rem] tracking-[-0.01em]",
-                                selected ? "text-navy/55" : "text-navy/30",
-                              )}
-                            >
-                              {tech.name}
-                            </span>
-                          ))}
+                        <span
+                          className={cn(
+                            "mt-0.5 block truncate text-[0.6875rem] tracking-[-0.01em]",
+                            selected ? "text-navy/55" : "text-navy/30",
+                          )}
+                        >
+                          {tools.map((tech) => tech.name).join(" · ")}
                         </span>
                       </span>
                       <span
