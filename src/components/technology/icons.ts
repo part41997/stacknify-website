@@ -1,0 +1,78 @@
+import {
+  AppWindow,
+  BarChart3,
+  Boxes,
+  Braces,
+  Cloud,
+  CodeXml,
+  Component,
+  Database,
+  FileCode,
+  GitBranch,
+  Globe,
+  Layers,
+  Megaphone,
+  MessageSquare,
+  PenTool,
+  Search,
+  Server,
+  Share2,
+  Smartphone,
+  Sparkles,
+  Tablet,
+  Triangle,
+  Waypoints,
+  Wind,
+  Workflow,
+  type LucideIcon,
+} from "lucide-react";
+
+import type { TechnologyClusterId } from "@/types";
+
+export const clusterIcons: Record<TechnologyClusterId, LucideIcon> = {
+  frontend: AppWindow,
+  mobile: Smartphone,
+  backend: Server,
+  database: Database,
+  ai: Sparkles,
+  cloud: Cloud,
+  devops: GitBranch,
+  marketing: Search,
+};
+
+const techIcons: Record<string, LucideIcon> = {
+  react: Component,
+  nextjs: Triangle,
+  vue: Layers,
+  typescript: FileCode,
+  tailwind: Wind,
+  figma: PenTool,
+  "react-native": Smartphone,
+  flutter: Tablet,
+  expo: AppWindow,
+  "rest-apis": Waypoints,
+  laravel: Boxes,
+  php: CodeXml,
+  nodejs: Server,
+  python: Braces,
+  graphql: Share2,
+  mysql: Database,
+  postgresql: Database,
+  redis: Layers,
+  prisma: Boxes,
+  openai: Sparkles,
+  claude: MessageSquare,
+  aws: Cloud,
+  vercel: Triangle,
+  cloudflare: Globe,
+  docker: Boxes,
+  git: GitBranch,
+  "github-actions": Workflow,
+  seo: Search,
+  "paid-ads": Megaphone,
+  analytics: BarChart3,
+};
+
+export function getTechIcon(slug: string): LucideIcon {
+  return techIcons[slug] ?? Boxes;
+}

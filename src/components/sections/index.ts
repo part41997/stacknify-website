@@ -1,0 +1,16 @@
+export { About } from "@/components/sections/about";
+export { AiDevelopment } from "@/components/sections/ai-development";
+export { Contact } from "@/components/sections/contact";
+export { Faq } from "@/components/sections/faq";
+export { FinalCta } from "@/components/sections/final-cta";
+export { Hero } from "@/components/sections/hero";
+export { Insights } from "@/components/sections/insights";
+export { ProblemSolution } from "@/components/sections/problem-solution";
+export { Process } from "@/components/sections/process";
+export { Projects } from "@/components/sections/projects";
+export { Services } from "@/components/sections/services";
+export { Solutions } from "@/components/sections/solutions";
+export { Stats } from "@/components/sections/stats";
+export { Technology } from "@/components/sections/technology";
+export { Testimonials } from "@/components/sections/testimonials";
+export { Why } from "@/components/sections/why";

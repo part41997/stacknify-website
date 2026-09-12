@@ -1,1 +1,107 @@
 @import "tailwindcss";
+@import "shadcn/tailwind.css";
+@import "../styles/tokens.css";
+@import "../styles/utilities.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    @apply font-sans;
+    scroll-behavior: smooth;
+    scroll-padding-top: var(--header-height);
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in srgb, var(--brand-navy) 18%, transparent)
+      transparent;
+  }
+
+  html::-webkit-scrollbar {
+    width: 11px;
+    height: 11px;
+  }
+
+  html::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  html::-webkit-scrollbar-thumb {
+    background-color: color-mix(in srgb, var(--brand-navy) 16%, transparent);
+    border: 3px solid transparent;
+    border-radius: 999px;
+    background-clip: content-box;
+  }
+
+  html::-webkit-scrollbar-thumb:hover {
+    background-color: color-mix(in srgb, var(--brand-navy) 28%, transparent);
+  }
+
+  body {
+    @apply min-h-svh bg-background-primary text-body text-text-secondary antialiased;
+    font-weight: 400;
+    font-optical-sizing: auto;
+    font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1 {
+    @apply font-heading text-h1 text-text-primary;
+    font-weight: 600;
+    text-wrap: balance;
+  }
+
+  h2 {
+    @apply font-heading text-h2 text-text-primary;
+    font-weight: 600;
+    text-wrap: balance;
+  }
+
+  h3,
+  h4 {
+    @apply font-heading text-h3 text-brand-slate;
+    font-weight: 600;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a {
+    text-underline-offset: 0.18em;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--brand-mint) 55%, transparent);
+    color: var(--text-primary);
+  }
+
+  .site-aurora {
+    opacity: 0.12;
+  }
+
+  @media (prefers-reduced-motion: no-preference) and (min-width: 64rem) {
+    .site-aurora {
+      animation: aurora-drift 56s ease-in-out infinite;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  @keyframes aurora-drift {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0);
+    }
+    50% {
+      transform: translate3d(1.2%, -0.8%, 0);
+    }
+  }
+}
