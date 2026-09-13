@@ -1,8 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { usePathname } from "next/navigation";
 
 import { AnchorLink } from "@/components/navigation/anchor-link";
+import { isPathActive } from "@/data/navigation";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 import { defaultEase } from "@/lib/motion";
 import { getHash } from "@/lib/navigation";
@@ -22,9 +24,12 @@ export function NavItemLink({
   onNavigate,
   appearance = "desktop",
 }: NavItemLinkProps) {
-  const sectionId = getHash(item.href) ?? "";
-  const isActive = sectionId === activeId;
+  const pathname = usePathname();
   const reduceMotion = usePrefersReducedMotion();
+  const hash = getHash(item.href);
+  const isActive = hash
+    ? isPathActive(item.href, pathname) && activeId === hash
+    : isPathActive(item.href, pathname);
 
   return (
     <AnchorLink

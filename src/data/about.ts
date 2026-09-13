@@ -31,7 +31,7 @@ export const aboutContent: AboutContent = {
   },
   cta: {
     label: "Start Your Project",
-    href: "/#contact",
+    href: "/contact",
   },
 };
 

@@ -49,7 +49,7 @@ export function SiteLogo({
 
   return (
     <AnchorLink
-      href="/#home"
+      href="/"
       aria-label={`${siteConfig.name} home`}
       onClick={onNavigate}
       className={cn("inline-flex shrink-0 items-center", className)}

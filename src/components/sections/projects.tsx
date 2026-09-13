@@ -5,7 +5,11 @@ import { SectionHeading } from "@/components/layout/section-heading";
 import { ProjectGallery } from "@/components/projects/project-gallery";
 import { projectsContent } from "@/data/projects";
 
-export function Projects() {
+type ProjectsProps = {
+  headingAs?: "h1" | "h2";
+};
+
+export function Projects({ headingAs = "h2" }: ProjectsProps) {
   return (
     <Section id="projects" spacing="comfortable" className="overflow-hidden">
       <Container width="wide" className="flex flex-col gap-8 lg:gap-10">
@@ -14,6 +18,7 @@ export function Projects() {
           accent={projectsContent.headingAccent}
           reveal
           description={projectsContent.description}
+          as={headingAs}
           className="lg:max-w-3xl"
         />
 

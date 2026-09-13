@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils";
 
 const visibleMetrics = aboutMetrics.filter(isVisibleMetric);
 
-export function About() {
+export function About({ headingAs: Heading = "h2" }: { headingAs?: "h1" | "h2" }) {
   return (
     <Section id="about" defer spacing="comfortable" className="bg-background-primary">
       <Container>
@@ -26,9 +26,14 @@ export function About() {
               {aboutContent.label}
             </p>
 
-            <h2 className="mt-4 font-heading text-h2 text-text-primary">
+            <Heading
+              className={cn(
+                "mt-4 font-heading text-h2 text-text-primary",
+                Heading === "h1" && "text-h1",
+              )}
+            >
               {aboutContent.heading}
-            </h2>
+            </Heading>
 
             <p className="mt-4 text-body text-text-secondary sm:mt-5 sm:text-body-lg">
               {aboutContent.description}

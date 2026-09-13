@@ -25,7 +25,7 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
     <Section spacing="default" className="bg-background-primary">
       <Container className="flex flex-col gap-12 lg:gap-16">
         <AnchorLink
-          href="/#projects"
+          href="/projects"
           className="inline-flex w-fit items-center gap-2 text-sm text-text-muted transition-colors hover:text-navy"
         >
           <ArrowLeft className="size-4" />
@@ -109,7 +109,7 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
 
         <div className="flex flex-col gap-3">
           <AnchorLink
-            href="/#contact"
+            href="/contact"
             className={cn(buttonVariants({ size: "lg" }), "w-fit")}
           >
             {projectsContent.similarCta}

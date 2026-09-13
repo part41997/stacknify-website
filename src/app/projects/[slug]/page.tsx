@@ -52,7 +52,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         <JsonLd
           data={breadcrumbJsonLd([
             { name: siteConfig.name, path: "/" },
-            { name: projectsContent.sectionLabel, path: "/#projects" },
+            { name: projectsContent.sectionLabel, path: "/projects" },
             { name: project.title, path: `/projects/${project.slug}` },
           ])}
         />

@@ -31,7 +31,7 @@ export function ServiceDetail({ category }: { category: ServiceCategory }) {
       <Container className="flex flex-col gap-12 lg:gap-16">
         <FadeIn>
           <AnchorLink
-            href="/#services"
+            href="/services"
             className="inline-flex w-fit items-center gap-2 text-sm text-text-muted transition-colors hover:text-navy"
           >
             <ArrowLeft className="size-4" />
@@ -208,7 +208,7 @@ export function ServiceDetail({ category }: { category: ServiceCategory }) {
 
         <FadeIn>
           <AnchorLink
-            href="/#contact"
+            href="/contact"
             className={cn(buttonVariants({ size: "lg" }), "w-fit")}
           >
             {servicesContent.ctaLabel}

@@ -22,7 +22,7 @@ export function InsightArticle({ insight }: { insight: Insight }) {
     <Section spacing="default" className="bg-background-primary">
       <Container className="flex flex-col gap-10 lg:gap-14">
         <AnchorLink
-          href="/#insights"
+          href="/insights"
           className="inline-flex w-fit items-center gap-2 text-sm text-text-muted transition-colors hover:text-navy"
         >
           <ArrowLeft className="size-4" />

@@ -9,6 +9,7 @@ import { NavItemLink } from "@/components/navigation/nav-item";
 import { AnchorLink } from "@/components/navigation/anchor-link";
 import { buttonVariants } from "@/components/ui/button";
 import {
+  isPathActive,
   navEntries,
   primaryCta,
   type NavMenuEntry,
@@ -206,11 +207,16 @@ function MobileAccordion({
   const pathname = usePathname();
   const panelId = `${entry.id}-mobile-panel`;
   const isActive =
-    getHash(entry.href) === activeId ||
-    pathname.startsWith(`/${entry.id}/`) ||
-    entry.items.some(
-      (item) => item.href === pathname || getHash(item.href) === activeId,
-    );
+    isPathActive(entry.href, pathname) ||
+    (entry.id === "about" && pathname === "/faq") ||
+    entry.items.some((item) => {
+      const hash = getHash(item.href);
+      if (hash) {
+        return isPathActive(item.href, pathname) && activeId === hash;
+      }
+
+      return isPathActive(item.href, pathname);
+    });
 
   return (
     <li>

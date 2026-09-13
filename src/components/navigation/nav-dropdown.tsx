@@ -9,6 +9,7 @@ import { serviceIcons } from "@/components/services/icons";
 import { AnchorLink } from "@/components/navigation/anchor-link";
 import { NavItemLink } from "@/components/navigation/nav-item";
 import {
+  isPathActive,
   navEntries,
   type NavLeaf,
   type NavMenuEntry,
@@ -340,22 +341,20 @@ function ListItems({
 }
 
 function isEntryActive(entry: NavMenuEntry, activeId: string, pathname: string) {
-  if (getHash(entry.href) === activeId) {
+  if (isPathActive(entry.href, pathname)) {
     return true;
   }
 
-  if (
-    entry.id === "industries" &&
-    (pathname === "/industries" || pathname.startsWith("/industries/"))
-  ) {
+  if (entry.id === "about" && pathname === "/faq") {
     return true;
   }
 
-  if (entry.id === "services" && pathname.startsWith("/services/")) {
-    return true;
-  }
+  return entry.items.some((item) => {
+    const hash = getHash(item.href);
+    if (hash) {
+      return isPathActive(item.href, pathname) && activeId === hash;
+    }
 
-  return entry.items.some(
-    (item) => item.href === pathname || getHash(item.href) === activeId,
-  );
+    return isPathActive(item.href, pathname);
+  });
 }

@@ -3,8 +3,9 @@ import { InsightSlider } from "@/components/insights/insight-slider";
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
 import { insights, insightsContent } from "@/data/insights";
+import { cn } from "@/lib/utils";
 
-export function Insights() {
+export function Insights({ headingAs: Heading = "h2" }: { headingAs?: "h1" | "h2" }) {
   return (
     <Section
       id="insights"
@@ -22,9 +23,14 @@ export function Insights() {
             />
             {insightsContent.eyebrow}
           </p>
-          <h2 className="mt-3 font-heading text-h2 text-text-primary">
+          <Heading
+            className={cn(
+              "mt-3 font-heading text-h2 text-text-primary",
+              Heading === "h1" && "text-h1",
+            )}
+          >
             {insightsContent.heading}
-          </h2>
+          </Heading>
         </div>
       </Container>
 

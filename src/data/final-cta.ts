@@ -29,11 +29,11 @@ export const finalCtaContent: FinalCtaContent = {
   description: "Tell us what you're building, automating or improving.",
   primary: {
     label: "Start Your Project",
-    href: "/#contact",
+    href: "/contact",
   },
   secondary: {
     label: "Talk To Our Team",
-    href: "/#contact",
+    href: "/contact",
   },
   visualLabel:
     "Abstract path from Idea, AI, Software, and Automation into Business Growth",

@@ -1,6 +1,17 @@
 import { getServiceHref, serviceCategories } from "@/data/services";
 import type { NavItem, ServiceIcon } from "@/types";
 
+export const routes = {
+  home: "/",
+  services: "/services",
+  solutions: "/solutions",
+  projects: "/projects",
+  insights: "/insights",
+  about: "/about",
+  faq: "/faq",
+  contact: "/contact",
+} as const;
+
 export type NavLeaf = {
   label: string;
   href: string;
@@ -29,12 +40,12 @@ export type NavMenuEntry = {
 export type NavEntry = NavLinkEntry | NavMenuEntry;
 
 export const navEntries: readonly NavEntry[] = [
-  { type: "link", label: "Home", href: "/#home" },
+  { type: "link", label: "Home", href: routes.home },
   {
     type: "menu",
     id: "services",
     label: "Services",
-    href: "/#services",
+    href: routes.services,
     layout: "mega",
     description: "Six practices. One team.",
     overviewLabel: "View all services",
@@ -46,36 +57,36 @@ export const navEntries: readonly NavEntry[] = [
       icon: category.icon,
     })),
   },
-  { type: "link", label: "Solutions", href: "/#solutions" },
-  { type: "link", label: "Portfolio", href: "/#projects" },
-  { type: "link", label: "Blog", href: "/#insights" },
+  { type: "link", label: "Solutions", href: routes.solutions },
+  { type: "link", label: "Portfolio", href: routes.projects },
+  { type: "link", label: "Blog", href: routes.insights },
   {
     type: "menu",
     id: "about",
     label: "About",
-    href: "/#about",
+    href: routes.about,
     layout: "list",
     description: "How we take on work — and stay with it.",
     overviewLabel: "About Stacknify",
     items: [
       {
         label: "About",
-        href: "/#about",
+        href: `${routes.about}#about`,
         summary: "The practice behind the software.",
       },
       {
         label: "Why Stacknify",
-        href: "/#why",
+        href: `${routes.about}#why`,
         summary: "How we take on work from the first conversation.",
       },
       {
         label: "Process",
-        href: "/#process",
+        href: `${routes.about}#process`,
         summary: "Discover, design, build, and grow in the open.",
       },
       {
         label: "FAQ",
-        href: "/#faq",
+        href: routes.faq,
         summary: "Straight answers about working with us.",
       },
     ],
@@ -89,11 +100,36 @@ export const mainNavigation: NavItem[] = navEntries.map((entry) => ({
 
 export const primaryCta = {
   label: "Let's Talk",
-  href: "/#contact",
+  href: routes.contact,
 } as const;
 
 export const skipToContent = "Skip to main content";
 
-export const sectionIds = navEntries
-  .map((entry) => entry.href.split("#")[1])
-  .filter((id): id is string => Boolean(id));
+export function hrefPath(href: string) {
+  return href.split("#")[0] || "/";
+}
+
+export function isPathActive(href: string, pathname: string) {
+  const path = hrefPath(href);
+
+  if (path === "/") {
+    return pathname === "/";
+  }
+
+  return pathname === path || pathname.startsWith(`${path}/`);
+}
+
+export const sectionIds = [
+  ...new Set(
+    navEntries.flatMap((entry) => {
+      const hrefs =
+        entry.type === "menu"
+          ? [entry.href, ...entry.items.map((item) => item.href)]
+          : [entry.href];
+
+      return hrefs
+        .map((href) => href.split("#")[1])
+        .filter((id): id is string => Boolean(id));
+    }),
+  ),
+];

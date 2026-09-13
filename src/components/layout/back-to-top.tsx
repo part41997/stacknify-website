@@ -1,31 +1,16 @@
 "use client";
 
 import { ChevronUp } from "lucide-react";
-import { usePathname } from "next/navigation";
 
 import { buttonVariants } from "@/components/ui/button";
 import { footerContent } from "@/data/footer";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 import { useScrolled } from "@/hooks/use-scrolled";
-import { navigateToHash } from "@/lib/navigation";
 import { cn } from "@/lib/utils";
 
 export function BackToTop() {
   const visible = useScrolled(420);
   const reduceMotion = usePrefersReducedMotion();
-  const pathname = usePathname();
-
-  function onBackToTop() {
-    const onHome = pathname === "/" || pathname === "";
-    const behavior: ScrollBehavior = reduceMotion ? "auto" : "smooth";
-
-    if (onHome) {
-      navigateToHash("/#home", reduceMotion);
-      return;
-    }
-
-    window.scrollTo({ top: 0, behavior });
-  }
 
   return (
     <button
@@ -33,7 +18,12 @@ export function BackToTop() {
       data-back-to-top
       aria-label={footerContent.backToTop}
       aria-hidden={!visible}
-      onClick={onBackToTop}
+      onClick={() =>
+        window.scrollTo({
+          top: 0,
+          behavior: reduceMotion ? "auto" : "smooth",
+        })
+      }
       tabIndex={visible ? 0 : -1}
       className={cn(
         buttonVariants({ variant: "outline", size: "icon" }),

@@ -33,7 +33,7 @@ export const aiDevelopmentContent: AiDevelopmentContent = {
   categoriesLabel: "How AI shows up in the build",
   cta: {
     label: "Start Your Project",
-    href: "/#contact",
+    href: "/contact",
   },
 };
 

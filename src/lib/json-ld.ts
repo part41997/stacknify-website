@@ -59,7 +59,7 @@ export function organizationJsonLd(): JsonLd {
             contactType: "sales",
             email,
             telephone: phone || undefined,
-            url: getAbsoluteUrl("/#contact"),
+            url: getAbsoluteUrl("/contact"),
           },
         ]
       : undefined,

@@ -15,17 +15,20 @@ export function navigateToHash(href: string, reduceMotion = false): boolean {
   }
 
   const hash = getHash(href);
-  const onHome =
-    window.location.pathname === "/" || window.location.pathname === "";
+  const targetPath = href.split("#")[0] || "/";
+  const currentPath = window.location.pathname || "/";
+  const samePath =
+    targetPath === currentPath ||
+    (targetPath === "/" && currentPath === "/");
 
-  if (!onHome) {
+  if (!samePath) {
     return false;
   }
 
   const behavior: ScrollBehavior = reduceMotion ? "auto" : "smooth";
 
   if (!hash || hash === "home") {
-    window.history.pushState(null, "", hash ? `/#${hash}` : "/");
+    window.history.pushState(null, "", hash ? `${currentPath}#${hash}` : currentPath);
     scheduleScroll(() => window.scrollTo({ top: 0, behavior }));
     return true;
   }
@@ -34,7 +37,7 @@ export function navigateToHash(href: string, reduceMotion = false): boolean {
     return false;
   }
 
-  window.history.pushState(null, "", `/#${hash}`);
+  window.history.pushState(null, "", `${currentPath}#${hash}`);
   scheduleScroll(() => {
     document.getElementById(hash)?.scrollIntoView({
       behavior,

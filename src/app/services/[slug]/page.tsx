@@ -51,7 +51,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
       <JsonLd
         data={breadcrumbJsonLd([
           { name: siteConfig.name, path: "/" },
-          { name: servicesContent.categoryLabel, path: "/#services" },
+          { name: servicesContent.categoryLabel, path: "/services" },
           { name: category.title, path: `/services/${category.slug}` },
         ])}
       />

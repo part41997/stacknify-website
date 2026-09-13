@@ -80,7 +80,7 @@ export function IndustryDetail({ industry }: { industry: Industry }) {
         </div>
 
         <AnchorLink
-          href="/#contact"
+          href="/contact"
           className={cn(buttonVariants({ size: "lg" }), "w-fit")}
         >
           {industriesContent.ctaLabel}

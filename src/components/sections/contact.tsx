@@ -32,11 +32,16 @@ const ContactForm = dynamic(
   },
 );
 
-export function Contact() {
+type ContactProps = {
+  headingAs?: "h1" | "h2";
+};
+
+export function Contact({ headingAs = "h2" }: ContactProps) {
   return (
     <Section id="contact" spacing="comfortable" tone="surface">
       <Container className="flex flex-col gap-8 lg:gap-10">
         <SectionHeading
+          as={headingAs}
           prefix={contactContent.headingPrefix}
           accent={contactContent.headingAccent}
           description={contactContent.description}

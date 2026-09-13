@@ -73,11 +73,11 @@ export const siteConfig: SiteConfig = {
     description: `${name} designs and builds the software, AI, and automation businesses run on — systems for real operations, not a demo on the side.`,
     primaryCta: {
       label: "Start Your Project",
-      href: "/#contact",
+      href: "/contact",
     },
     secondaryCta: {
       label: "Explore Our Services",
-      href: "/#services",
+      href: "/services",
     },
     scrollLabel: "Scroll",
     scrollHref: "/#solutions",

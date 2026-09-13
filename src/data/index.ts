@@ -36,9 +36,11 @@ export {
 export { faqContent, faqItems } from "@/data/faq";
 export { footerColumns, footerContent } from "@/data/footer";
 export {
+  isPathActive,
   mainNavigation,
   navEntries,
   primaryCta,
+  routes,
   sectionIds,
   skipToContent,
 } from "@/data/navigation";

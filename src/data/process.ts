@@ -10,7 +10,7 @@ export const processContent: ProcessContent = {
   headingAccent: "Impact.",
   cta: {
     label: "Start Your Project",
-    href: "/#contact",
+    href: "/contact",
   },
   stepsLabel: "Process steps",
 };

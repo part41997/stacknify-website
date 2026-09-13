@@ -53,7 +53,7 @@ export default async function InsightPage({ params }: InsightPageProps) {
       <JsonLd
         data={breadcrumbJsonLd([
           { name: siteConfig.name, path: "/" },
-          { name: insightsContent.eyebrow, path: "/#insights" },
+          { name: insightsContent.eyebrow, path: "/insights" },
           { name: insight.title, path: getInsightHref(insight) },
         ])}
       />

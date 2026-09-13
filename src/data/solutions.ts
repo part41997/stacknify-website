@@ -18,7 +18,7 @@ export const solutionsContent: SolutionsContent = {
   stepsLabel: "Business process to business result",
   cta: {
     label: "Start Your Project",
-    href: "/#contact",
+    href: "/contact",
   },
 };
 
