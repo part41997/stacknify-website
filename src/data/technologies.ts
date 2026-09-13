@@ -189,14 +189,14 @@ export const technologies: Technology[] = [
     "Flutter",
     "mobile",
     "Native-feeling iOS and Android apps from one codebase when that fit is better. Shared UI and logic without running two separate mobile teams.",
-    ["react-native", "expo", "android", "ios", "rest-apis"],
+    ["react-native", "expo", "android", "ios"],
   ),
   item(
     "react-native",
     "React Native",
     "mobile",
     "Cross-platform apps that share logic with the web stack. One component model from the product UI to the phone, with native modules where they matter.",
-    ["flutter", "expo", "react", "typescript", "rest-apis"],
+    ["flutter", "expo", "react", "typescript"],
   ),
   item(
     "expo",
@@ -218,13 +218,6 @@ export const technologies: Technology[] = [
     "mobile",
     "iPhone and iPad products that feel native and pass App Store review. We handle the platform details so the product is not stuck in a web wrapper.",
     ["android", "flutter", "react-native", "expo"],
-  ),
-  item(
-    "rest-apis",
-    "REST APIs",
-    "mobile",
-    "The contract mobile and web clients share — one set of APIs, not a separate stack. Auth, payloads, and errors stay explicit so clients do not guess.",
-    ["react-native", "flutter", "nodejs", "rest"],
   ),
   item(
     "nodejs",
@@ -266,14 +259,14 @@ export const technologies: Technology[] = [
     "GraphQL",
     "backend",
     "Typed queries when clients need exactly the data they ask for. We use it when REST would otherwise turn into a pile of one-off endpoints.",
-    ["nodejs", "rest", "rest-apis"],
+    ["nodejs", "rest"],
   ),
   item(
     "rest",
     "REST",
     "backend",
     "Predictable HTTP APIs that web, mobile, and partners can all call. Resources, status codes, and auth stay boring on purpose so clients stay simple.",
-    ["graphql", "nodejs", "rest-apis"],
+    ["graphql", "nodejs"],
   ),
   item(
     "openai",

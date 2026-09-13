@@ -23,7 +23,7 @@ export const siteConfig: SiteConfig = {
   tagline,
   description: `${name} helps startups, SMEs, and international businesses build smarter software, automate faster, and grow with AI-first digital solutions.`,
   positioning,
-  email: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "",
+  email: process.env.NEXT_PUBLIC_CONTACT_EMAIL?.trim() || "info@stacknify.com",
   phone: process.env.NEXT_PUBLIC_CONTACT_PHONE ?? "",
   address: process.env.NEXT_PUBLIC_CONTACT_LOCATION ?? "",
   website: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",

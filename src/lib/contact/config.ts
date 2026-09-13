@@ -10,7 +10,7 @@ function readInt(name: string, fallback: number) {
 export function getContactServerConfig() {
   const resendApiKey = read("RESEND_API_KEY");
   const fromEmail = read("CONTACT_FROM_EMAIL");
-  const toEmail = read("CONTACT_TO_EMAIL");
+  const toEmail = read("CONTACT_TO_EMAIL") || "info@stacknify.com";
   const turnstileSecret = read("TURNSTILE_SECRET_KEY");
   const turnstileSiteKey = read("NEXT_PUBLIC_TURNSTILE_SITE_KEY");
 
