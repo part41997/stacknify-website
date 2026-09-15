@@ -10,6 +10,8 @@ export const routes = {
   about: "/about",
   faq: "/faq",
   contact: "/contact",
+  privacy: "/privacy",
+  terms: "/terms",
 } as const;
 
 export type NavLeaf = {

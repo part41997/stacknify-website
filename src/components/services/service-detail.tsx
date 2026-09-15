@@ -85,6 +85,17 @@ export function ServiceDetail({ category }: { category: ServiceCategory }) {
           </p>
         </FadeIn>
 
+        <section>
+          <h2 className="text-overline text-text-muted uppercase">
+            {servicesContent.storyLabel}
+          </h2>
+          <div className="mt-4 flex max-w-3xl flex-col gap-4 text-body text-text-secondary">
+            {category.story.map((paragraph) => (
+              <p key={paragraph.slice(0, 48)}>{paragraph}</p>
+            ))}
+          </div>
+        </section>
+
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
           <FadeIn>
             <h2 className="text-overline text-text-muted uppercase">
@@ -205,6 +216,24 @@ export function ServiceDetail({ category }: { category: ServiceCategory }) {
             </div>
           </nav>
         ) : null}
+
+        <section>
+          <h2 className="text-overline text-text-muted uppercase">
+            {servicesContent.faqLabel}
+          </h2>
+          <div className="mt-6 flex max-w-3xl flex-col gap-6">
+            {category.faqs.map((faq) => (
+              <article key={faq.question}>
+                <h3 className="font-heading text-[1.125rem] tracking-[-0.02em] text-text-primary">
+                  {faq.question}
+                </h3>
+                <p className="mt-2 text-body text-text-secondary">
+                  {faq.answer}
+                </p>
+              </article>
+            ))}
+          </div>
+        </section>
 
         <FadeIn>
           <AnchorLink

@@ -89,10 +89,10 @@ export const siteConfig: SiteConfig = {
   },
   privacy: {
     title: "Privacy Policy",
-    description: `${name} will publish this policy here. It has not been written yet, so nothing on this page should be treated as a live privacy statement.`,
+    description: `${name} explains how we collect, use, store, and protect personal information when you visit our website, submit an enquiry, or engage us for software, AI, and digital services.`,
   },
   terms: {
     title: "Terms & Conditions",
-    description: `${name} will publish these terms here. They have not been written yet, so nothing on this page should be treated as a live agreement.`,
+    description: `${name} website and professional services terms for software development, AI automation, web and mobile applications, design, and digital marketing engagements.`,
   },
 };

@@ -71,6 +71,17 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
           </div>
         )}
 
+        <section>
+          <h2 className="text-overline text-text-muted uppercase">
+            {projectsContent.storyLabel}
+          </h2>
+          <div className="mt-4 flex max-w-3xl flex-col gap-4 text-body text-text-secondary">
+            {project.story.map((paragraph) => (
+              <p key={paragraph.slice(0, 48)}>{paragraph}</p>
+            ))}
+          </div>
+        </section>
+
         <dl className="grid gap-10 md:grid-cols-2 lg:gap-x-16 lg:gap-y-12">
           <StudyBlock label={labels.challenge} body={project.challenge} />
           <StudyBlock label={labels.approach} body={project.approach} />

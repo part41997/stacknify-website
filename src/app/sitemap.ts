@@ -55,10 +55,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.6,
     },
     {
-      url: getAbsoluteUrl(routes.contact),
+      url: getAbsoluteUrl(routes.privacy),
       lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.8,
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
+    {
+      url: getAbsoluteUrl(routes.terms),
+      lastModified: now,
+      changeFrequency: "yearly",
+      priority: 0.3,
     },
     ...publishedProjects.map((project) => ({
       url: getAbsoluteUrl(`/projects/${project.slug}`),

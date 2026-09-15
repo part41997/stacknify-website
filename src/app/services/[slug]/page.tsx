@@ -8,7 +8,7 @@ import {
   servicesContent,
 } from "@/data/services";
 import { siteConfig } from "@/data/site";
-import { breadcrumbJsonLd, serviceJsonLd } from "@/lib/json-ld";
+import { breadcrumbJsonLd, faqPageJsonLd, serviceJsonLd } from "@/lib/json-ld";
 import { createMetadata } from "@/lib/metadata";
 
 type ServicePageProps = {
@@ -31,9 +31,10 @@ export async function generateMetadata({ params }: ServicePageProps) {
   }
 
   return createMetadata({
-    title: category.title,
-    description: category.summary,
+    title: category.seo.title,
+    description: category.seo.description,
     path: `/services/${category.slug}`,
+    keywords: category.seo.keywords,
   });
 }
 
@@ -48,6 +49,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
   return (
     <>
       <JsonLd data={serviceJsonLd(category)} />
+      <JsonLd data={faqPageJsonLd(category.faqs)} />
       <JsonLd
         data={breadcrumbJsonLd([
           { name: siteConfig.name, path: "/" },

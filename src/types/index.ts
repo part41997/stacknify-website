@@ -74,6 +74,12 @@ export type FaqItem = {
   answer: string;
 };
 
+export type PageSeo = {
+  title: string;
+  description: string;
+  keywords: readonly string[];
+};
+
 export type Audience =
   | "Startups"
   | "SMEs"
@@ -114,6 +120,9 @@ export type ServiceCategory = {
   icon: ServiceIcon;
   /** Hex accent from the service visual. Used for hover glow only. */
   accent: string;
+  seo: PageSeo;
+  story: readonly string[];
+  faqs: readonly FaqItem[];
 };
 
 export type TrustStat = {
@@ -218,6 +227,8 @@ export type Project = {
   href?: string;
   image?: ProjectImage;
   screenshots?: readonly string[];
+  seo: PageSeo;
+  story: readonly string[];
 };
 
 export type TechnologyClusterId =

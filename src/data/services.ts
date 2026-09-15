@@ -17,6 +17,8 @@ export interface ServicesContent extends SectionHeadingCopy {
   backLabel: string;
   fallbackTitle: string;
   loadingLabel: string;
+  storyLabel: string;
+  faqLabel: string;
 }
 
 export const servicesContent: ServicesContent = {
@@ -40,6 +42,8 @@ export const servicesContent: ServicesContent = {
   backLabel: "All services",
   fallbackTitle: "Service",
   loadingLabel: "Loading services",
+  storyLabel: "What this practice covers",
+  faqLabel: "Questions about this work",
 };
 
 function category(
@@ -72,6 +76,43 @@ export const serviceCategories: ServiceCategory[] = [
     technologies: ["React", "Next.js", "Node.js", "Laravel"],
     icon: "code",
     accent: "#8B9CFF",
+    seo: {
+      title: "Custom Software Development for Internal Tools & SaaS",
+      description:
+        "Stacknify builds custom software, enterprise systems, and SaaS platforms around your workflows — internal tools, integrations, and applications you can keep changing after launch.",
+      keywords: [
+        "custom software development",
+        "enterprise software",
+        "SaaS development",
+        "internal tools",
+        "workflow software",
+        "Laravel development",
+        "Next.js applications",
+        "API integration",
+      ],
+    },
+    story: [
+      "Custom software development is the right move when off-the-shelf tools force workarounds. We design enterprise software and internal tools around how your team already operates: records, roles, approvals, and the reports leadership actually needs.",
+      "A typical build includes a web application, role-based access, and integrations with the CRM, ERP, inbox, or warehouse system you already run. We use React, Next.js, Node.js, and Laravel when they fit the product — not as a stack looking for a use.",
+      "SaaS platforms follow the same rule. Multi-tenant access, billing-ready architecture, and APIs that mobile or partner products can call later. The first release should be usable. The next release should not require a rewrite.",
+    ],
+    faqs: [
+      {
+        question: "When do we need custom software instead of a SaaS subscription?",
+        answer:
+          "When the workflow is the product, not a side process. If every new hire learns a spreadsheet workaround, or two systems never share a source of truth, custom software development usually costs less than another year of glue and overtime.",
+      },
+      {
+        question: "Can you integrate new software with our existing tools?",
+        answer:
+          "Yes. Most projects include API integration — CRM, ERP, payments, email, or internal databases — so the new application does not become another island. We map data ownership before we write endpoints.",
+      },
+      {
+        question: "Do you build SaaS products as well as internal tools?",
+        answer:
+          "Both. Internal management systems and client-facing SaaS platforms share the same engineering: authentication, permissions, dashboards, and a codebase you can extend. The difference is who logs in, not whether the software is “real.”",
+      },
+    ],
   }),
   category({
     slug: "web-development",
@@ -96,6 +137,43 @@ export const serviceCategories: ServiceCategory[] = [
     technologies: ["Next.js", "React", "TypeScript"],
     icon: "web",
     accent: "#5BA3F5",
+    seo: {
+      title: "Web Development for Fast, Search-Ready Sites & Apps",
+      description:
+        "Custom websites and web applications built with Next.js, React, and TypeScript — performance, technical SEO, and conversion paths that stay maintainable after launch.",
+      keywords: [
+        "web development",
+        "custom website development",
+        "web application development",
+        "Next.js development",
+        "React websites",
+        "e-commerce development",
+        "conversion-focused websites",
+        "technical SEO websites",
+      ],
+    },
+    story: [
+      "Web development here means a site or web app that does a job: explain the offer, collect a lead, take an order, or run a workflow in the browser. We build custom websites and web applications on Next.js, React, and TypeScript so pages stay fast on a phone and the codebase can take the next feature.",
+      "Marketing sites get clear information architecture, Core Web Vitals, and technical SEO so search engines can read the work you sell. Web apps get authentication, dashboards, and APIs. E-commerce gets catalogues, checkout, and admin that operations can actually use.",
+      "We do not treat launch as the finish line. The same architecture should support a landing page this quarter and a customer portal next quarter without a full rebuild.",
+    ],
+    faqs: [
+      {
+        question: "Do you build marketing websites and web applications?",
+        answer:
+          "Yes. Brochure sites, conversion landing pages, and authenticated web apps share one practice. The stack is Next.js and React when they fit; the decision is what the visitor or operator needs to complete.",
+      },
+      {
+        question: "Will the website be set up for SEO?",
+        answer:
+          "Technical SEO is part of the build: crawlable HTML, metadata, structured headings, and performance. Rankings still need the right offer and content. We do not sell “guaranteed first page” with a template site.",
+      },
+      {
+        question: "Can you build e-commerce as well as lead-gen sites?",
+        answer:
+          "Yes. E-commerce development is a web application with catalogue, cart, and operations — not only a pretty product grid. We size the shop to how you actually fulfil orders.",
+      },
+    ],
   }),
   category({
     slug: "mobile-apps",
@@ -120,6 +198,42 @@ export const serviceCategories: ServiceCategory[] = [
     technologies: ["React Native", "Flutter", "TypeScript"],
     icon: "mobile",
     accent: "#2DD4BF",
+    seo: {
+      title: "Mobile App Development for iOS & Android",
+      description:
+        "Native-feeling iOS and Android apps with Flutter or React Native — field tools, customer apps, and operator consoles on the same APIs as your web software.",
+      keywords: [
+        "mobile app development",
+        "iOS app development",
+        "Android app development",
+        "Flutter app development",
+        "React Native development",
+        "cross-platform mobile apps",
+        "custom mobile applications",
+      ],
+    },
+    story: [
+      "Mobile app development is for work that happens away from a desk: field teams, customers on a commute, operators on a floor. We ship iOS and Android apps that talk to the same APIs and data as your web product, so the phone is not a second process.",
+      "Cross-platform builds use Flutter or React Native when one codebase is the honest choice. Native modules go in where the store, the camera, or the device actually requires them. TypeScript keeps the React Native side aligned with the rest of a JS stack.",
+      "Store submission, permissions, and push notifications are part of delivery — not an afterthought. The measure of the app is whether people keep opening it because the next step is easier on the phone.",
+    ],
+    faqs: [
+      {
+        question: "Do you build both iOS and Android apps?",
+        answer:
+          "Yes. Most products ship on both stores. We choose Flutter or React Native for a shared codebase when that is faster and still feels native, and we write platform-specific code when iOS or Android requires it.",
+      },
+      {
+        question: "Can the mobile app use the same backend as our website?",
+        answer:
+          "That is the default. Customer apps, field tools, and operator consoles should share APIs, authentication, and records with the web application. A separate mobile database is how teams go out of sync.",
+      },
+      {
+        question: "Flutter or React Native — how do you choose?",
+        answer:
+          "React Native when the product already lives in a React/TypeScript stack. Flutter when a single UI toolkit across iOS and Android is the cleaner fit. We pick from the product, not from a preferred logo.",
+      },
+    ],
   }),
   category({
     slug: "ui-ux-design",
@@ -144,6 +258,43 @@ export const serviceCategories: ServiceCategory[] = [
     technologies: ["Figma", "React", "TypeScript"],
     icon: "palette",
     accent: "#FF52A2",
+    seo: {
+      title: "UI/UX Design for Web, Mobile & SaaS Products",
+      description:
+        "Research-driven UI/UX design in Figma — wireframes, interactive prototypes, and design systems that make web, mobile, and SaaS products clearer before production.",
+      keywords: [
+        "UI UX design",
+        "product design",
+        "wireframing",
+        "prototyping",
+        "design systems",
+        "SaaS dashboard UX",
+        "mobile app UI design",
+        "Figma design",
+      ],
+    },
+    story: [
+      "UI/UX design is how we stop building the wrong screens. We start with the job: who uses the product, how often, and what “done” looks like. Then wireframes, interactive prototypes, and a design system in Figma so engineering is not guessing in production.",
+      "SaaS dashboard UX, mobile app UI, and conversion-focused websites are different surfaces with the same rule: navigation, hierarchy, and a next step that does not need a legend. Visual polish comes after the path is agreed.",
+      "When design and engineering stay in one team, the Figma file is not a throwaway mock. Components map to React. That is how products stay consistent after the first release.",
+    ],
+    faqs: [
+      {
+        question: "Do you design before development, or only polish an existing product?",
+        answer:
+          "Both. New products go through research, wireframes, and prototypes before production code. Existing SaaS dashboards and mobile apps get a UX pass when the software works and people still cannot find the next action.",
+      },
+      {
+        question: "What do we get at the end of a UI/UX engagement?",
+        answer:
+          "A Figma source of truth: flows, screens, and a design system the build can follow. For conversion websites, that includes mobile-first layouts and calls to action. We do not hand over mood boards with no path to ship.",
+      },
+      {
+        question: "Can UI/UX and development happen in the same project?",
+        answer:
+          "That is how we prefer to work. Design decisions lock before they are expensive, and React or React Native implementation follows the same system. Split agencies are how rebuilds start.",
+      },
+    ],
   }),
   category({
     slug: "ai-automation",
@@ -168,6 +319,43 @@ export const serviceCategories: ServiceCategory[] = [
     technologies: ["OpenAI", "Claude", "Node.js"],
     icon: "sparkles",
     accent: "#8A7BFF",
+    seo: {
+      title: "AI Automation, Agents & Workflow AI for Operations",
+      description:
+        "AI automation for real work: agents, chatbots, and workflow AI connected to your systems — OpenAI and Claude where they change output, not a demo chatbot on the side.",
+      keywords: [
+        "AI automation",
+        "AI agent development",
+        "workflow automation",
+        "chatbot development",
+        "business process automation",
+        "OpenAI integration",
+        "Claude AI",
+        "AI software development",
+      ],
+    },
+    story: [
+      "AI automation is useful when a person still copies, classifies, or chases the same request. We build agents, chatbots, and workflow AI on the steps that change output — routing tickets, drafting replies, extracting documents, following up — connected to the CRM, inbox, or database you already run.",
+      "Models are components. OpenAI, Claude, and Node.js services sit behind a job: who does it, what the input is, and what happens when the model is wrong. Human review stays in the loop until the loop earns trust.",
+      "We do not sell a generic chatbot bolted onto a homepage. If the work is not in the workflow, the feature will not get used after week two. Data pipelines and reporting follow the same rule: ingest, analyse, and surface where the team already looks.",
+    ],
+    faqs: [
+      {
+        question: "Can you add AI to software we already use?",
+        answer:
+          "Yes. Most AI automation work is integration: APIs into the tools you already run, with an agent or workflow on a specific job. A standalone chat window that cannot see your records is not an automation.",
+      },
+      {
+        question: "Do you build custom AI agents or only chatbots?",
+        answer:
+          "Agents, workflow AI, and chatbots when a conversation is the right interface. An agent that plans steps and writes back to a system is different from a FAQ bot. We name the job first, then the model.",
+      },
+      {
+        question: "Which AI models do you use?",
+        answer:
+          "OpenAI and Claude where they fit the task, with Node.js (and Python when the pipeline needs it) around the model. The model is replaceable. The workflow, permissions, and failure path are not.",
+      },
+    ],
   }),
   category({
     slug: "seo-digital-marketing",
@@ -192,6 +380,43 @@ export const serviceCategories: ServiceCategory[] = [
     technologies: ["Next.js", "TypeScript"],
     icon: "growth",
     accent: "#F3A022",
+    seo: {
+      title: "SEO Services & Digital Marketing for Qualified Demand",
+      description:
+        "Technical SEO, content strategy, and digital marketing on Next.js sites — search and campaigns built around your offer, not vanity traffic.",
+      keywords: [
+        "SEO services",
+        "technical SEO",
+        "digital marketing",
+        "search engine optimization",
+        "content strategy",
+        "keyword research",
+        "conversion rate optimization",
+        "Next.js SEO",
+      ],
+    },
+    story: [
+      "SEO services and digital marketing only work if the site can be crawled, the offer is clear, and the landing page matches the search. We start from the buyer and the work you sell, then fix technical SEO, content, and paid demand against that story.",
+      "Technical SEO on Next.js covers crawl, indexation, metadata, structured data, and Core Web Vitals. Content work is keyword research, pillar and cluster pages, and internal links — not a blog nobody asked for. Paid ads only make sense when the page is built to convert.",
+      "The goal is qualified conversations, not a traffic spike. If search engines cannot read the site, we fix the site. If the site ranks for the wrong queries, we change the content. We do not sell rankings we cannot influence.",
+    ],
+    faqs: [
+      {
+        question: "Do you offer technical SEO and content, or only ads?",
+        answer:
+          "Technical SEO, content and keyword strategy, and paid campaigns when the landing page is ready. Digital marketing without a readable, converting site is spend against a broken path.",
+      },
+      {
+        question: "Can you SEO a site you did not originally build?",
+        answer:
+          "Yes. Enterprise technical SEO often starts with crawl, speed, and index issues on an existing codebase. If the stack cannot rank, we say so before we write more pages.",
+      },
+      {
+        question: "How do you measure SEO work?",
+        answer:
+          "Indexation, the queries that match the offer, and whether those visits become conversations. Vanity sessions without a lead or a sale are not the report we optimise for.",
+      },
+    ],
   }),
 ];
 

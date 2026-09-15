@@ -8,7 +8,7 @@ import {
   projectsContent,
 } from "@/data/projects";
 import { siteConfig } from "@/data/site";
-import { breadcrumbJsonLd } from "@/lib/json-ld";
+import { breadcrumbJsonLd, projectJsonLd } from "@/lib/json-ld";
 import { createMetadata } from "@/lib/metadata";
 
 type ProjectPageProps = {
@@ -31,10 +31,11 @@ export async function generateMetadata({ params }: ProjectPageProps) {
   }
 
   return createMetadata({
-    title: project.title,
-    description: project.challenge,
+    title: project.seo.title,
+    description: project.seo.description,
     path: `/projects/${project.slug}`,
     noIndex: project.placeholder,
+    keywords: project.seo.keywords,
   });
 }
 
@@ -49,13 +50,16 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   return (
     <>
       {project.placeholder ? null : (
-        <JsonLd
-          data={breadcrumbJsonLd([
-            { name: siteConfig.name, path: "/" },
-            { name: projectsContent.sectionLabel, path: "/projects" },
-            { name: project.title, path: `/projects/${project.slug}` },
-          ])}
-        />
+        <>
+          <JsonLd data={projectJsonLd(project)} />
+          <JsonLd
+            data={breadcrumbJsonLd([
+              { name: siteConfig.name, path: "/" },
+              { name: projectsContent.sectionLabel, path: "/projects" },
+              { name: project.title, path: `/projects/${project.slug}` },
+            ])}
+          />
+        </>
       )}
       <ProjectCaseStudy project={project} />
     </>

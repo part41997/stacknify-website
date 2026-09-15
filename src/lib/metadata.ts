@@ -10,6 +10,7 @@ type CreateMetadataInput = {
   noIndex?: boolean;
   ogType?: "website" | "article";
   canonical?: string | false;
+  keywords?: readonly string[];
 };
 
 export function createMetadata({
@@ -19,6 +20,7 @@ export function createMetadata({
   noIndex = false,
   ogType = "website",
   canonical,
+  keywords,
 }: CreateMetadataInput = {}): Metadata {
   const url = `${getSiteUrl()}${path}`;
   const socialTitle = title
@@ -46,7 +48,7 @@ export function createMetadata({
     creator: siteConfig.name,
     publisher: siteConfig.name,
     category: "technology",
-    keywords: [...siteConfig.seo.topics],
+    keywords: [...(keywords ?? siteConfig.seo.topics)],
     referrer: "origin-when-cross-origin",
     manifest: "/manifest.webmanifest",
     icons: {

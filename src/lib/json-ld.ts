@@ -1,8 +1,9 @@
 import { faqItems } from "@/data/faq";
+import { getProjectHref } from "@/data/projects";
 import { getInsightCover, getInsightHref } from "@/data/insights";
 import { getServiceHref, serviceCategories } from "@/data/services";
 import { siteConfig } from "@/data/site";
-import type { Insight, ServiceCategory } from "@/types";
+import type { FaqItem, Insight, Project, ServiceCategory } from "@/types";
 import {
   getAbsoluteUrl,
   getLogoUrl,
@@ -85,7 +86,7 @@ export function servicesJsonLd(): JsonLd[] {
       "@type": "Service",
       "@id": getAbsoluteUrl(getServiceHref(category)),
       name: category.title,
-      description: category.summary,
+      description: category.seo.description,
       serviceType: category.items.join(", "),
       url: getAbsoluteUrl(getServiceHref(category)),
       provider: { "@id": organizationId() },
@@ -99,7 +100,7 @@ export function serviceJsonLd(category: ServiceCategory): JsonLd {
     "@type": "Service",
     "@id": getAbsoluteUrl(getServiceHref(category)),
     name: category.title,
-    description: category.summary,
+    description: category.seo.description,
     serviceType: category.items.join(", "),
     url: getAbsoluteUrl(getServiceHref(category)),
     provider: { "@id": organizationId() },
@@ -115,10 +116,14 @@ export function siteGraphJsonLd(): JsonLd {
 }
 
 export function faqJsonLd(): JsonLd {
+  return faqPageJsonLd(faqItems);
+}
+
+export function faqPageJsonLd(items: readonly FaqItem[]): JsonLd {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: faqItems.map((item) => ({
+    mainEntity: items.map((item) => ({
       "@type": "Question",
       name: item.question,
       acceptedAnswer: {
@@ -127,6 +132,20 @@ export function faqJsonLd(): JsonLd {
       },
     })),
   };
+}
+
+export function projectJsonLd(project: Project): JsonLd {
+  return compact({
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: project.title,
+    description: project.seo.description,
+    keywords: project.seo.keywords.join(", "),
+    url: getAbsoluteUrl(getProjectHref(project)),
+    about: project.solutionType,
+    inLanguage: siteConfig.locale,
+    provider: { "@id": organizationId() },
+  });
 }
 
 export function breadcrumbJsonLd(
