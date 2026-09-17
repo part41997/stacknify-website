@@ -73,7 +73,7 @@ export const serviceCategories: ServiceCategory[] = [
       "Software you can keep changing after the first release.",
     ],
     items: ["Enterprise Systems", "SaaS Platforms", "Integrations"],
-    technologies: ["React", "Next.js", "Node.js", "Laravel"],
+    technologies: ["React", "Vue.js", "Next.js", "Node.js", "Laravel"],
     icon: "code",
     accent: "#8B9CFF",
     seo: {
@@ -134,7 +134,7 @@ export const serviceCategories: ServiceCategory[] = [
       "A codebase that can take the next feature without a rebuild.",
     ],
     items: ["Custom Sites", "Web Apps", "E-commerce"],
-    technologies: ["Next.js", "React", "TypeScript"],
+    technologies: ["Next.js", "React", "TypeScript", "Node.js", "Laravel"],
     icon: "web",
     accent: "#5BA3F5",
     seo: {
@@ -195,7 +195,7 @@ export const serviceCategories: ServiceCategory[] = [
       "Apps people open because they make the next step easier.",
     ],
     items: ["iOS & Android", "Flutter", "React Native"],
-    technologies: ["React Native", "Flutter", "TypeScript"],
+    technologies: ["iOS", "Android", "Flutter", "React Native"],
     icon: "mobile",
     accent: "#2DD4BF",
     seo: {
@@ -255,7 +255,7 @@ export const serviceCategories: ServiceCategory[] = [
       "A system the rest of the product can keep using.",
     ],
     items: ["Wireframes", "Prototyping", "Design Systems"],
-    technologies: ["Figma", "React", "TypeScript"],
+    technologies: ["Figma", "UX", "Wireframing", "Prototyping", "Design Systems"],
     icon: "palette",
     accent: "#FF52A2",
     seo: {
@@ -377,7 +377,7 @@ export const serviceCategories: ServiceCategory[] = [
       "A site and campaign that share the same story.",
     ],
     items: ["Technical SEO", "Paid Ads", "Content"],
-    technologies: ["Next.js", "TypeScript"],
+    technologies: ["SEO", "AI SEO", "Analytics", "CRO", "Paid Ads"],
     icon: "growth",
     accent: "#F3A022",
     seo: {
