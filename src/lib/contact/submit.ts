@@ -1,8 +1,5 @@
 import { contactContent } from "@/data/contact";
-import {
-  getContactServerConfig,
-  shouldDryRunEmail,
-} from "@/lib/contact/config";
+import { getContactServerConfig } from "@/lib/contact/config";
 import { deliverInquiry, notifyWebhook } from "@/lib/contact/email";
 import {
   fingerprint,
@@ -28,6 +25,22 @@ export type ContactSubmitResult = {
   body: { ok: true } | { ok: false; error: string };
   headers?: Record<string, string>;
 };
+
+function deliveryErrorMessage(reason: string) {
+  if (reason === "email_not_configured") {
+    return "Email is not connected on the server. Confirm RESEND_API_KEY, CONTACT_FROM_EMAIL, and CONTACT_TO_EMAIL, then restart the Node.js app.";
+  }
+
+  if (reason === "provider_unreachable") {
+    return "The mail service could not be reached from the server. Check that outbound HTTPS to api.resend.com is allowed.";
+  }
+
+  if (reason.startsWith("provider_")) {
+    return "The mail service rejected this send. In Resend, verify the stacknify.com domain and use that domain in CONTACT_FROM_EMAIL.";
+  }
+
+  return contactContent.form.unavailableMessage;
+}
 
 function jsonResult(
   status: number,
@@ -157,19 +170,11 @@ export async function submitContactRequest(
     return jsonResult(200, { ok: true });
   }
 
-  const turnstileRequired =
-    (config.isProduction && !shouldDryRunEmail()) ||
-    Boolean(config.turnstileSiteKey);
+  const turnstileConfigured = Boolean(
+    config.turnstileSiteKey && config.turnstileSecret,
+  );
 
-  if (turnstileRequired) {
-    if (!config.turnstileSiteKey || !config.turnstileSecret) {
-      log("unavailable", "turnstile_misconfigured");
-      return jsonResult(503, {
-        ok: false,
-        error: contactContent.form.unavailableMessage,
-      });
-    }
-
+  if (turnstileConfigured) {
     const verified = await verifyTurnstile(turnstileToken ?? "", ip);
     if (!verified) {
       log("forbidden", "turnstile");
@@ -215,7 +220,7 @@ export async function submitContactRequest(
     log("unavailable", delivered.reason, inquiry.service);
     return jsonResult(503, {
       ok: false,
-      error: contactContent.form.unavailableMessage,
+      error: deliveryErrorMessage(delivered.reason),
     });
   }
 

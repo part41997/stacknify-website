@@ -1,5 +1,14 @@
 function read(name: string) {
-  return process.env[name]?.trim() ?? "";
+  const value = process.env[name]?.trim() ?? "";
+
+  if (
+    (value.startsWith('"') && value.endsWith('"')) ||
+    (value.startsWith("'") && value.endsWith("'"))
+  ) {
+    return value.slice(1, -1).trim();
+  }
+
+  return value;
 }
 
 function readInt(name: string, fallback: number) {
