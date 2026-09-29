@@ -11,6 +11,7 @@ export type CtaLink = {
 
 export type SocialLinks = {
   linkedin: string;
+  clutch: string;
   instagram: string;
   facebook: string;
   pinterest: string;

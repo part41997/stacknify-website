@@ -140,6 +140,7 @@ export type SocialLink = {
 
 const socialLabels: Record<SocialPlatform, string> = {
   linkedin: "LinkedIn",
+  clutch: "Clutch",
   instagram: "Instagram",
   facebook: "Facebook",
   pinterest: "Pinterest",
@@ -149,6 +150,7 @@ const socialLabels: Record<SocialPlatform, string> = {
 
 const socialOrder: SocialPlatform[] = [
   "linkedin",
+  "clutch",
   "instagram",
   "facebook",
   "pinterest",

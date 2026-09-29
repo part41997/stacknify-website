@@ -33,6 +33,9 @@ export const siteConfig: SiteConfig = {
     linkedin:
       process.env.NEXT_PUBLIC_SOCIAL_LINKEDIN ||
       "https://www.linkedin.com/company/stacknify",
+    clutch:
+      process.env.NEXT_PUBLIC_SOCIAL_CLUTCH ||
+      "https://clutch.co/profile/stacknify",
     instagram:
       process.env.NEXT_PUBLIC_SOCIAL_INSTAGRAM ||
       "https://www.instagram.com/stacknify",
