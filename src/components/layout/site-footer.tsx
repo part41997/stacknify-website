@@ -2,6 +2,7 @@ import { Container } from "@/components/layout/container";
 import { SocialLinks } from "@/components/layout/social-links";
 import { AnchorLink } from "@/components/navigation/anchor-link";
 import { SiteLogo } from "@/components/navigation/site-logo";
+import { getContactChannels } from "@/data/contact";
 import { footerColumns, footerContent } from "@/data/footer";
 import type { NavItem } from "@/types";
 
@@ -30,6 +31,8 @@ function FooterNavLink({ item }: { item: NavItem }) {
 }
 
 export function SiteFooter() {
+  const channels = getContactChannels();
+
   return (
     <footer className="relative z-10 border-t border-navy/8 bg-mist">
       <Container className="flex flex-col gap-12 py-14 sm:py-16 lg:gap-16 lg:py-20">
@@ -39,6 +42,23 @@ export function SiteFooter() {
             <p className="mt-5 text-body text-blue-gray">
               {footerContent.description}
             </p>
+            {channels.length > 0 ? (
+              <ul className="mt-5 flex flex-col gap-1">
+                {channels.map((channel) => (
+                  <li key={channel.id}>
+                    {channel.href ? (
+                      <a href={channel.href} className={footerLinkClassName}>
+                        {channel.value}
+                      </a>
+                    ) : (
+                      <span className="inline-flex min-h-11 items-center text-sm text-muted-foreground">
+                        {channel.value}
+                      </span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            ) : null}
             <SocialLinks className="mt-7" />
           </div>
 

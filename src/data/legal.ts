@@ -32,6 +32,7 @@ export type LegalDocument = {
 
 const company = siteConfig.name;
 const email = siteConfig.email || "info@stacknify.com";
+const phone = siteConfig.phone || "+91 8401805791";
 const site = "https://stacknify.com";
 const effectiveDate = "15 September 2026";
 const effectiveDateIso = "2026-09-15";
@@ -60,7 +61,7 @@ export const privacyPolicy: LegalDocument = {
         },
         {
           type: "p",
-          text: `You may contact us at ${email}. If a business address is published on the website or in a statement of work, that address is our correspondence address for that engagement.`,
+          text: `You may contact us at ${email} or ${phone}. If a business address is published on the website or in a statement of work, that address is our correspondence address for that engagement.`,
         },
       ],
     },

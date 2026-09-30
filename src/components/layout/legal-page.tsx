@@ -15,6 +15,8 @@ function paragraphNumber(blocks: readonly LegalBlock[], at: number) {
 
 export function LegalPage({ document }: LegalPageProps) {
   const contactEmail = siteConfig.email || "info@stacknify.com";
+  const contactPhone = siteConfig.phone || "+91 8401805791";
+  const contactTel = contactPhone.replace(/[^\d+]/g, "");
   const meta = [
     { label: "Issuing organisation", value: siteConfig.name },
     { label: "Document", value: document.title },
@@ -148,6 +150,13 @@ export function LegalPage({ document }: LegalPageProps) {
                 className="text-navy underline-offset-4 hover:text-teal hover:underline"
               >
                 {contactEmail}
+              </a>
+              {" · "}
+              <a
+                href={`tel:${contactTel}`}
+                className="text-navy underline-offset-4 hover:text-teal hover:underline"
+              >
+                {contactPhone}
               </a>
               . Website:{" "}
               <a
