@@ -313,6 +313,39 @@ export const projects: Project[] = [
     ],
   },
   {
+    slug: "splittygo",
+    title: "SplittyGo",
+    industry: "Consumer Finance",
+    solutionType: "Mobile App",
+    categories: ["mobile"],
+    challenge:
+      "Shared trips, flats, and group bills live in chats, so nobody can see who paid what.",
+    approach:
+      "A Flutter app for groups, itemized expenses, personal budgets, and spend analytics.",
+    solution:
+      "SplittyGo — smart group expense sharing with trackers, contacts, and insights.",
+    technology: ["Flutter", "Dart"],
+    result: null,
+    placeholder: false,
+    layout: "compact",
+    client: "SplittyGo",
+    seo: {
+      title: "SplittyGo | Flutter Group Expense Sharing App",
+      description:
+        "Flutter app development for SplittyGo — group expense sharing, itemized bills, personal budgets, and spend analytics on a phone people will actually open.",
+      keywords: [
+        "Flutter app development",
+        "expense sharing app",
+        "group bill splitting app",
+        "personal finance mobile app",
+      ],
+    },
+    story: [
+      "Shared trips, flats, and group bills lived in chats, so nobody could see who paid what. Itemized spend and member contributions had to sit in one place people would actually open.",
+      "SplittyGo is a Flutter app for group expense sharing: an expense tracker, contacts, personal budgets, and analytics. Mobile development here is the loop from a shared bill to a clear balance — not a spreadsheet exported to a phone.",
+    ],
+  },
+  {
     slug: "stacko",
     title: "Stacko",
     industry: "FinTech",

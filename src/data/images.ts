@@ -129,7 +129,7 @@ function portfolioCover(slug: string, alt: string) {
   });
 }
 
-const projectGalleryAlts: Record<string, readonly [string, string]> = {
+const projectGalleryAlts: Record<string, readonly string[]> = {
   "internal-management-system": [
     "Records table with role filters and a teal reporting sparkline.",
     "Access-control matrix and audit log for the internal platform.",
@@ -165,6 +165,11 @@ const projectGalleryAlts: Record<string, readonly [string, string]> = {
   "leap-club": [
     "Community feed of event cards and RSVP chips.",
     "Profile with upcoming meetups in the Leap Club app.",
+  ],
+  splittygo: [
+    "SplittyGo expense tracker on an iPhone — monthly total and category spend.",
+    "SplittyGo analytics on an iPhone — top payer and spending by group.",
+    "SplittyGo contacts on an iPhone — friends and roommates in a shared group.",
   ],
   "mobile-app-ui-ux": [
     "Wireframes beside high-fidelity mobile screens.",
@@ -206,17 +211,19 @@ const projectGalleryAlts: Record<string, readonly [string, string]> = {
 
 function projectGallerySlide(
   slug: string,
-  index: 2 | 3,
+  index: number,
   alt: string,
 ): SiteImageAsset {
+  const fourThree = slug === "splittygo";
+
   return asset({
     id: `projects.${slug}` as SiteImageId,
     file: `projects/${slug}-${index}.webp`,
     alt,
     category: "illustration",
-    desktopAspectRatio: "16 / 10",
-    mobileAspectRatio: "16 / 10",
-    size: "cover",
+    desktopAspectRatio: fourThree ? "4 / 3" : "16 / 10",
+    mobileAspectRatio: fourThree ? "4 / 3" : "16 / 10",
+    size: fourThree ? "story" : "cover",
     sizes: imageSizes.pageHero,
     ready: true,
     purpose: "Project detail gallery slide.",
@@ -231,10 +238,9 @@ export function getProjectGallerySlides(slug: string): SiteImageAsset[] {
     return [];
   }
 
-  return [
-    projectGallerySlide(slug, 2, alts[0]),
-    projectGallerySlide(slug, 3, alts[1]),
-  ];
+  return alts.map((alt, offset) =>
+    projectGallerySlide(slug, offset + 2, alt),
+  );
 }
 
 /**
@@ -467,6 +473,10 @@ export const siteImages = {
   "projects.leap-club": portfolioCover(
     "leap-club",
     "Leap Club Android app — profiles, feeds, and community events.",
+  ),
+  "projects.splittygo": portfolioCover(
+    "splittygo",
+    "SplittyGo Flutter app on iPhone — home tiles for expenses, analytics, contacts, and groups.",
   ),
   "industries.startups": asset({
     id: "industries.startups",

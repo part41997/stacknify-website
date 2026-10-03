@@ -29,6 +29,9 @@ export function ProjectMediaSlider({ images, title }: ProjectMediaSliderProps) {
   const multiple = images.length > 1;
   const current = images[index];
   const { labels } = projectsContent;
+  const ratio = current ? current.width / current.height : 16 / 10;
+  const frame =
+    ratio < 1 ? "portrait" : ratio < 1.45 ? "fourThree" : "wide";
 
   const goTo = useCallback(
     (next: number, dir?: number) => {
@@ -101,7 +104,13 @@ export function ProjectMediaSlider({ images, title }: ProjectMediaSliderProps) {
             step(1);
           }
         }}
-        className="relative aspect-[16/10] overflow-hidden rounded-[1.75rem] border border-navy/8 bg-background-soft shadow-[0_28px_64px_-32px_color-mix(in_srgb,var(--brand-navy)_28%,transparent)] ring-1 ring-navy/8 outline-none focus-visible:ring-2 focus-visible:ring-ring/70 lg:rounded-[2rem]"
+        className={cn(
+          "relative overflow-hidden rounded-[1.75rem] border border-navy/8 bg-background-soft shadow-[0_28px_64px_-32px_color-mix(in_srgb,var(--brand-navy)_28%,transparent)] ring-1 ring-navy/8 outline-none focus-visible:ring-2 focus-visible:ring-ring/70 lg:rounded-[2rem]",
+          frame === "portrait" &&
+            "mx-auto aspect-[9/16] w-full max-w-[22rem] sm:max-w-[24rem]",
+          frame === "fourThree" && "aspect-[4/3]",
+          frame === "wide" && "aspect-[16/10]",
+        )}
       >
         <AnimatePresence custom={direction} initial={false} mode="wait">
           <motion.div
@@ -131,7 +140,11 @@ export function ProjectMediaSlider({ images, title }: ProjectMediaSliderProps) {
               priority={index === 0}
               sizes={imageSizes.pageHero}
               className="absolute inset-0"
-              imageClassName="object-cover object-center"
+              imageClassName={
+                frame === "portrait"
+                  ? "object-contain object-center"
+                  : "object-cover object-center"
+              }
             />
           </motion.div>
         </AnimatePresence>

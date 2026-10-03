@@ -356,6 +356,7 @@ export type SiteImageId =
   | "projects.stacko"
   | "projects.sajima-vpn"
   | "projects.leap-club"
+  | "projects.splittygo"
   | "industries.startups"
   | "industries.healthcare"
   | "industries.education"
