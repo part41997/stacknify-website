@@ -171,6 +171,11 @@ const projectGalleryAlts: Record<string, readonly string[]> = {
     "SplittyGo analytics on an iPhone — top payer and spending by group.",
     "SplittyGo contacts on an iPhone — friends and roommates in a shared group.",
   ],
+  "gym-tracker": [
+    "Gym Tracker progress on an iPhone — volume, sets, and a weekly trend.",
+    "Gym Tracker workout history on an iPhone — walks and sessions by date.",
+    "Gym Tracker step tracker on an iPhone — daily steps and a start-walk action.",
+  ],
   "mobile-app-ui-ux": [
     "Wireframes beside high-fidelity mobile screens.",
     "Prototype flow of three connected app screens.",
@@ -214,7 +219,7 @@ function projectGallerySlide(
   index: number,
   alt: string,
 ): SiteImageAsset {
-  const fourThree = slug === "splittygo";
+  const fourThree = slug === "splittygo" || slug === "gym-tracker";
 
   return asset({
     id: `projects.${slug}` as SiteImageId,
@@ -477,6 +482,10 @@ export const siteImages = {
   "projects.splittygo": portfolioCover(
     "splittygo",
     "SplittyGo Flutter app on iPhone — home tiles for expenses, analytics, contacts, and groups.",
+  ),
+  "projects.gym-tracker": portfolioCover(
+    "gym-tracker",
+    "Gym Tracker Flutter app on iPhone — home for workouts, walks, and cardio.",
   ),
   "industries.startups": asset({
     id: "industries.startups",

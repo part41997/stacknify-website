@@ -313,6 +313,39 @@ export const projects: Project[] = [
     ],
   },
   {
+    slug: "gym-tracker",
+    title: "Gym Tracker",
+    industry: "Fitness",
+    solutionType: "Mobile App",
+    categories: ["mobile"],
+    challenge:
+      "Workouts, walks, and cardio live in notes or memory, so progress is hard to see.",
+    approach:
+      "A Flutter app for gym sessions, step tracking, cardio logs, and volume insights.",
+    solution:
+      "Gym Tracker — log workouts, walks, and cardio with history and progress in one place.",
+    technology: ["Flutter", "Dart"],
+    result: null,
+    placeholder: false,
+    layout: "compact",
+    client: "Gym Tracker",
+    seo: {
+      title: "Gym Tracker | Flutter Workout & Step Tracking App",
+      description:
+        "Flutter app development for Gym Tracker — gym sessions, walks, cardio logs, workout history, and volume progress on a phone people will actually open.",
+      keywords: [
+        "Flutter app development",
+        "gym tracker app",
+        "workout tracking app",
+        "step counter mobile app",
+      ],
+    },
+    story: [
+      "Workouts, walks, and cardio lived in notes or memory, so volume and streaks were guesswork. Gym sessions, daily steps, and cardio needed one place people would actually open after a session.",
+      "Gym Tracker is a Flutter app for fitness logging: an active workout, a step tracker, cardio entries, history by date, and volume progress. Mobile development here is the loop from a session to a clear trend — not a spreadsheet in a gym bag.",
+    ],
+  },
+  {
     slug: "splittygo",
     title: "SplittyGo",
     industry: "Consumer Finance",

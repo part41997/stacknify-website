@@ -357,6 +357,7 @@ export type SiteImageId =
   | "projects.sajima-vpn"
   | "projects.leap-club"
   | "projects.splittygo"
+  | "projects.gym-tracker"
   | "industries.startups"
   | "industries.healthcare"
   | "industries.education"
